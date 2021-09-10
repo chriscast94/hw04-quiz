@@ -31,16 +31,15 @@ var quizQuestions = [
 // Create timer function
 function setTimer() {
   var interval = setInterval(function () {
-    document.getElementById("clock").innerHTML=timer;
+    document.getElementById("clock").innerHTML = timer + " sec left";
     timer--;
     clock.textContent = timer;
     if (timer === 0) {
       clearInterval(interval);
-      sendMessage();
+      document.getElementById("questions-area").innerHTML = "Time's Up"
     }
-    // if (timer == 0) {
-    //   timer = 60
-    // }
+    if (timer == 0) {
+     }
 
   }, 1000);
 }
@@ -54,15 +53,21 @@ function startQuiz() {
 }
 
 // Function to end quiz
- var endGame = document.getElementById("questions-area");
-function stopQuiz(){
- endGame.style.display="block";
- questionsArea.style.display="none";
+var endGame = document.getElementById("questions-area");
 
- }
+
+function stopQuiz() {
+  endGame.style.display = "block";
+  questionsArea.style.display = "none";
+  // Variable displays screen submition at end
+  // var endScreen = document.getElementById("questions-area");
+  //   endScreen.innerHTML="<h3>You Finished!</h3>";
+  //   endScreen.innerHTML +="<input type='text' placeholder='Name'>";
+  //   endScreen.innerHTML ="<button>Submit Score</button>";
+}
 
 var currentQuestionSpot = 0;
-var score = 0;
+var score = timer;
 
 // Function to start the game
 function startGame() {
@@ -87,44 +92,32 @@ function startGame() {
       if (btnAnswer !== question.correctAnswer) {
         // If the wrong answer is clcked, then 10 seconds is subtracted and a message appears
         timer -= 10;
-        // Message "wrong!" appears if answer is wrong
-        console.log("Wrong Answer!")
+        // Message "wrong Answer!" appears if answer is wrong
+        console.log("Wrong Answer!");
       }
+      // Message "Correct Answer" appears if answer is right
       if (btnAnswer === question.correctAnswer) {
         console.log("Correct Answer");
       }
       if (currentQuestionSpot < quizQuestions.length) {
         startGame();
-     }
-     else {
-       stopQuiz ();
-     }
+      }
+  
+      else {
+        stopQuiz();
+      }
     });
 
- 
-  
   }
 
-    // Move to the next question when answer button is clicked
-
-    //  let changeQuestion = document.getElementById("questions-area");
-    //  btnAnswer.onclick = inputChange;
-    //  function inputChange () {
-    //    changeQuestion.textContent = 
-    //  }
-
-
-   currentQuestionSpot++;
-   if (timer <= 0 || currentQuestionSpot > quizQuestions.length) {
-      timer = 60;
-      stopQuiz();
-    }
-
+  currentQuestionSpot++;
+  if (timer <= 0 || currentQuestionSpot > quizQuestions.length) {
+    stopQuiz();
+  }
 
 
 
   addEventListener("click", startQuiz);
- 
 }
 
 // Save score in client function; score = time remaining
